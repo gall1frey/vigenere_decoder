@@ -1,13 +1,11 @@
-from stats_helper import stats_helper
+from math import gcd
 
 #Test case:
 pt = '''I PROPOSE to consider the question, 'Can machines think?' This should begin with definitions of the meaning of the terms 'machine' and 'think'. The definitions might be framed so as to reflect so far as possible the normal use of the words, but this attitude is dangerous. If the meaning of the words 'machine' and 'think' are to be found by examining how they are commonly used it is difficult to escape the conclusion that the meaning and the answer to the question, 'Can machines think?' is to be sought in a statistical survey such as a Gallup poll. But this is absurd. Instead of attempting such a definition I shall replace the question by another, which is closely related to it and is expressed in relatively unambiguous words.
-
-The new form of the problem can be described in terms of a game which we call the 'imitation game'. It is played with three people, a man (A), a woman (B), and an interrogator (C) who may be of either sex. The interrogator stays in a room apart from the other two. The object of the game for the interrogator is to determine which of the other two is the man and which is the woman. He knows them by labels X and Y, and at the end of the game he says either 'X is A and Y is B' or 'X is B and Y is A'. The interrogator is allowed to put questions to A and B thus:'''
-key = '''start'''
-ct = '''K GPDIWAG km rhvakucg mpm slchmqwp, 'Tyc fikjzltl bpkei?' Iaqa uymjel jgxgc pqbj ucubvqvzmcl wn vyc bxivkee dy bpg kcgfa 'uctfxgm' ipu 'rwbvs'. Vyc sxnqpzrxhva ozewm jm hiybxl aq rq ih zmhccrm aw hrp pl xwujgqem bjv ldkuin lqt hn bjv udkla, dlr iaqa ckrxmclg zq stvogimjl. Qn vyc bxivkee dy bpg nmgwa 'uctfxgm' ipu 'rwbvs' cic ih jm hfscw jg goybbvqpx fdp bpgp ygx kwodmceg cuvb xm qa fzdubkcnk rd xakcgc iam kqeaanaqqe rwtb bjv kttvqpx ycw bpg rlhpmz vf rwx ycgjrxhv, 'Kce kpvpqpvq iaqvm?' zq ih jm ufsvab qp r qitbqukgrtt awittr acey yh t Oincse iwtn. Ssi mpqu zq puactu. Gclbmcu mu tbbgdnibvo ulaw t lmhzlxmqwp Z qwttt tvnatkm vyc fnmavzmc ug ipfrwxz, ejzaw ba knfqteg zgcyixl bq zr pgl qu vvekmauvb xg zmnrrxomta llpfjqilmjl ewtuq.
-
-Iam vgn ddku wh kft izwdccb viv dv btlkzkscs bv bgikh hn i irkt ppqey ut vitn kft 'buqvrrxhv ocdc'. Xm qa rcynxl ekkf iazmg gcditm, c dyc (T), i eqdyc (U), ivf rl xgbmtimvtbwt (T) uwh uia sc dy mqvycg lmf. Vyc xgbmtimvtbwt jrpra qp r pdhu irrpi yzwo kft hbpgi rlh. Bpg fzyxkb qw rwx oiov ddk bpg zlixzzqxyihz qu km sxbmtdgcx epktf dy bpg frwxz byf gh mpm orl pgl ejzaw ba bjv udfiv. Jv ichea vycb ug tcscal F ipu W, pgl iv kft xvl qw rwx oiov ft ligu vgiamz 'Z zq P tvl A zq Q' hz 'F kj Z pgl G kj Y'. Iam qpkcgkwockmg ba incmlxl bq gsi jcmukgdga bq R ycw J bjlq:'''
+'''
+key = '''crypto'''
+ct = '''k gpdicuv rd vcpjgsxf vyc fnsukgdg, ‘qce kpvvkech mvkei?’ Iawu jfdnzf scvbb yzrw wshzlxmwqeq dy hjv kttbkee dy hjv rtkau ‘dyrawpv’ ycw ‘hjzlz’. Mvg ucubbkkgdgg ozewm pg wppfsf jm pl hq icuesek qd yot rq ehguzzax hjv ldkacc shx ch kft pctuq, qnh vygh thvzrjws kj bpgugimjl. Wh kft fscegcz ch kft pctuq ‘btqjzlt’ tbf ‘kfxgy’ cic ih pg wmjgr dp cmtakegcz vqn rwxm cic rhaoflar iuvb xm wu uguywelji mc gjapis vyc rhbecshbcp kfpm hjv kttbkee pgr vyc pggyvp ih hjv ojxgvzmc, ‘Vop dyrawpvq iawpb?’ gh mc dv qdnujk gc t gvrrxlhktya litmcn liey yh t Uccjji dqcj. Qnh vygh bg csqjkr. Keqixof fd pmhgdnibbi jsra o fvdxgwvzmc B gjrja ksrcyrx hjv ojxgvzmc um cemiast, nfxvv kj aahggcw gxzckcs mc kk ycw wu vveksujcs bb tvjpmwxvjn nbcdzxziqlq lhffj.
+'''
 
 class vigenere:
     def __init__(self,key=None,ciphertext=None,plaintext=None,alphabet=None):
@@ -18,6 +16,19 @@ class vigenere:
 
     def set_key(self,key):
         self.key = key
+
+    def Nmaxelements(self, in_list, N):
+        final_list = []
+        for i in range(N):
+            final_list.append(max(in_list))
+            in_list.remove(max(in_list))
+        return final_list
+
+    def gcd_multiple(self,in_list):
+        if len(in_list) == 2:
+            return gcd(in_list[0],in_list[1])
+        else:
+            return gcd(in_list[0],self.gcd_multiple(in_list[1:]))
 
     def set_alpha(self,alphabet):
         self.alphabet = alphabet
@@ -60,8 +71,6 @@ class vigenere:
         ciphertext_shifted_list = []
         for i in range(len(self.ciphertext)):
             ciphertext_shifted_list.append('\u2005'*i+self.ciphertext)
-        #for i in range(len(ciphertext_shifted_list)):
-        #    print(ciphertext_shifted_list[i])
         coincidences_list = []
         for i in range(1,len(ciphertext_shifted_list)):
             coincidence = 0
@@ -69,26 +78,19 @@ class vigenere:
                 if ciphertext_shifted_list[0][j] == ciphertext_shifted_list[i][j]:
                     coincidence += 1
             coincidences_list.append(coincidence)
-        stats = stats_helper(coincidences_list)
-        iqr = stats.iqr()
-        third_quartile = stats.quartiles()[2]
-        print(iqr)
-        pos_list = []
-        for i in range(len(coincidences_list)):
-            if coincidences_list[i] > third_quartile + (1 * iqr):
-                pos_list.append(i)
-        count = 0
-        diff = 0
-        for i in range(1,len(pos_list)):
-            diff += (pos_list[i]-pos_list[i-1])
-            count += 1
-        possible_key_length = diff/count
-        print(possible_key_length)
+        check = self.Nmaxelements(coincidences_list.copy(),10)
+        spaces_list = [i for i in range(len(coincidences_list)) if coincidences_list[i] in check]
+        diff = list((spaces_list[i] - spaces_list[i-1]) for i in range(1,len(spaces_list)))
+        length_of_key = self.gcd_multiple(diff)
+        print("Length of key:",length_of_key)
+        print("Determining Key of length {0}...".format(length_of_key))
+
+
 
 if __name__ == '__main__':
     cipher = vigenere()
     cipher.set_key(key)
     cipher.set_alpha('abcdefghijklmnopqrstuvwxyz')
-    #cipher.set_ct(ct.lower())
-    cipher.set_ct('oaak kwiermk wovlfm rviwtt fylxn snl bt ixhxakl gytvg wgolzz mhrm laeix sipvtjl tf uw t prmlxre')
+    cipher.set_ct(ct.lower())
+    #cipher.set_ct('oaak kwiermk wovlfm rviwtt fylxn snl bt ixhxakl gytvg wgolzz mhrm laeix sipvtjl tf uw t prmlxre')
     cipher.decode()
