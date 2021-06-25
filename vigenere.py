@@ -84,18 +84,7 @@ class vigenere:
             if self.ciphertext == None:
                 raise ValueError('Ciphertext Not Provided!')
 
-    def scoring_func_1(self, in_str):
-        #IOC scoring
-        l = list(0 for i in range(len(self.alphabet)))
-        for i in in_str:
-            l[self.alphabet.index(i)] += 1
-        length = len(in_str)
-        tot = 0.0
-        for i in l:
-            tot += (i*(i-1))
-        return tot/(length*(length-1))
-
-    def scoring_func_2(self,in_str,shift):
+    def scoring_func(self,in_str,shift):
         l = list(0 for i in range(len(self.alphabet)))
         for i in in_str:
             l[self.alphabet.index(i)] += 1
@@ -151,6 +140,7 @@ class vigenere:
 
     def decode(self):
         self.check_errors('decode')
+        print("Decoding text using key '{0}'".format(self.key))
         shifts = [self.alphabet.index(i) for i in self.key]
         self.plaintext = ''
         for i in range(0,len(self.ciphertext),len(self.key)):
@@ -174,12 +164,11 @@ class vigenere:
         for sub_ct in ct_split:
             scores = []
             for shift in range(len(self.alphabet)):
-                score = self.scoring_func_2(sub_ct,shift)
+                score = self.scoring_func(sub_ct,shift)
                 scores.append(score)
             key += self.alphabet[scores.index(max(scores))]
         self.key = key
         print("Key is:",key)
-        print("Decoding text using key '{0}'".format(key))
         return self.decode()
 
 
