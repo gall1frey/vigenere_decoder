@@ -180,7 +180,7 @@ if __name__ == '__main__':
     '''
     cipher = vigenere()
     #cipher.set_pt(pt)
-    #cipher.set_key(key)
-    cipher.set_ct(ct)
-    #print(cipher.encode())
-    print(cipher.decode_no_key())
+    cipher.set_key('KEY')
+    cipher.set_ct('ZPYSRROBRDSCXGPITR')
+    print(cipher.decode())
+    #print(cipher.decode_no_key())
