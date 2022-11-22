@@ -1,6 +1,6 @@
 from math import gcd
 
-class vigenere:
+class Vigenere:
     def __init__(self,key=None,ciphertext=None,plaintext=None,alphabet=None,freq=None):
         self.key = key
         self.key_length = 0
@@ -67,7 +67,7 @@ class vigenere:
     def check_errors(self,func):
         if self.alphabet == None:
             raise ValueError('Alphabet Not Provided!')
-        if func == 'encode':
+        if func == 'encrypt':
             if self.plaintext == None:
                 raise ValueError('Plaintext Not Provided!')
             if self.key == None:
@@ -75,10 +75,10 @@ class vigenere:
             for i in self.key:
                 if i not in self.alphabet:
                     raise ValueError('Key not in alphabet!')
-        elif func == 'decode':
+        elif func == 'decrypt':
             if self.ciphertext == None:
                 raise ValueError('Ciphertext Not Provided!')
-        elif func == 'decodeNoKey':
+        elif func == 'decryptNoKey':
             if self.freq == None:
                 raise ValueError('Frequency Not Provided!')
             if self.ciphertext == None:
@@ -127,8 +127,8 @@ class vigenere:
         self.key_length = self.gcd_multiple(diff)
         return self.key_length
 
-    def encode(self):
-        self.check_errors('encode')
+    def encrypt(self):
+        self.check_errors('encrypt')
         shifts = [self.alphabet.index(i) for i in self.key]
         self.ciphertext = ''
         for i in range(0,len(self.plaintext),len(self.key)):
@@ -138,8 +138,8 @@ class vigenere:
                 self.ciphertext += self.alphabet[(self.alphabet.index(self.plaintext[i+j])+shifts[j])%len(self.alphabet)]
         return self.ciphertext
 
-    def decode(self):
-        self.check_errors('decode')
+    def decrypt(self):
+        self.check_errors('decrypt')
         print("Decoding text using key '{0}'".format(self.key))
         shifts = [self.alphabet.index(i) for i in self.key]
         self.plaintext = ''
@@ -150,8 +150,8 @@ class vigenere:
                 self.plaintext += self.alphabet[(self.alphabet.index(self.ciphertext[i+j])-shifts[j])%len(self.alphabet)]
         return self.plaintext
 
-    def decode_no_key(self):
-        self.check_errors('decode')
+    def decrypt_no_key(self):
+        self.check_errors('decrypt')
         print("Determining key length...")
         key_length = self.get_key_length()
         print("Length of key:",self.key_length)
@@ -169,7 +169,7 @@ class vigenere:
             key += self.alphabet[scores.index(max(scores))]
         self.key = key
         print("Key is:",key)
-        return self.decode()
+        return self.decrypt()
 
 
 if __name__ == '__main__':
@@ -178,9 +178,9 @@ if __name__ == '__main__':
     key = '''crypto'''
     ct = '''K GPDICUV rd vcpjgsxf vyc fnsukgdg, 'Qce kpvvkech mvkei?' Iawu jfdnzf scvbb yzrw wshzlxmwqeq dy hjv kttbkee dy hjv rtkau 'dyrawpv' ycw 'hjzlz'. Mvg ucubbkkgdgg ozewm pg wppfsf jm pl hq icuesek qd yot rq ehguzzax hjv ldkacc shx ch kft pctuq, qnh vygh thvzrjws kj bpgugimjl. Wh kft fscegcz ch kft pctuq 'btqjzlt' tbf 'kfxgy' cic ih pg wmjgr dp cmtakegcz vqn rwxm cic rhaoflar iuvb xm wu uguywelji mc gjapis vyc rhbecshbcp kfpm hjv kttbkee pgr vyc pggyvp ih hjv ojxgvzmc, 'Vop dyrawpvq iawpb?' gh mc dv qdnujk gc t gvrrxlhktya litmcn liey yh t Uccjji dqcj. Qnh vygh bg csqjkr. Keqixof fd pmhgdnibbi jsra o fvdxgwvzmc B gjrja ksrcyrx hjv ojxgvzmc um cemiast, nfxvv kj aahggcw gxzckcs mc kk ycw wu vveksujcs bb tvjpmwxvjn nbcdzxziqlq lhffj.
     '''
-    cipher = vigenere()
+    cipher = Vigenere()
     #cipher.set_pt(pt)
     cipher.set_key('KEY')
     cipher.set_ct('ZPYSRROBRDSCXGPITR')
-    print(cipher.decode())
-    #print(cipher.decode_no_key())
+    print(cipher.decrypt())
+    #print(cipher.decrypt_no_key())
